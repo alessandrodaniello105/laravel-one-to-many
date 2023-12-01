@@ -80,20 +80,23 @@
               type="file"
               class="form-control"
               name="image"
+              onchange="showImage(event)"
               value={{old('image', $project?->image)}}>
         </div>
 
         {{-- se al progetto non è impostata un'immagine, vado a prendere il placeholder dalla cartella img dentro public, --}}
-        {{-- <img src="{{Storage::}} {{$project?->image ?? asset()}}" alt=""> --}}
+        {{-- <img src=" {{$project?->image ?? asset()}}" alt=""> --}}
+        <img id="thumb" width="150" onerror="this.src = '/img/placeholder.webp'" src="{{asset('storage/' . $project?->image)}}" alt="">
 
 
         {{-- TECNOLOGIE --}}
         <div class="mb-3">
             <select
-              class="form-select @error('technologies') is-invalid @enderror"
+              class="form-select @error('technology') is-invalid @enderror"
               name="technology_id"
               id="technology_id"
               value="{{old('technology_id', $project?->technology_id)}}">
+
 
                 <option value="0">Scegli la tecnologia principale</option>
 
@@ -130,7 +133,7 @@
                 <option value="0">Scegli il tipo</option>
 
                 @foreach ($types as $type)
-                    <option @if ($type->id === old('type_id', $project?->type?->id)) selected @endif value="{{$type->id}}">{{$type->name}}</option>
+                    <option @if (old('type_id', $project?->type?->id) === $type->id) selected @endif value="{{$type->id}}">{{$type->name}}</option>
                 @endforeach
 
             </select>
@@ -169,6 +172,15 @@
         <a class="btn btn-secondary" href="{{ route('admin.projects.index') }}">Annulla</a>
 
     </form>
+
+    <script>
+
+        function showImage(event) {
+            const thumb = document.getElementById('thumb');
+            thumb.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+    </script>
 
 @endsection
 

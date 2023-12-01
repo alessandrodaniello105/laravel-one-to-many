@@ -31,13 +31,16 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        // definisco le tecnologie e i tipi nelle proprie variabili e le passo alla view tramite il compact
         $technologies = Technology::all();
         $types = Type::all();
 
+        // per rendere unica la pagina di create e edit abbiamo bisogno di rendere dinamici questi parametri che hanno in comune
         $title = "Inserisci un nuovo progetto";
         $route = route('admin.projects.store');
         $method = "POST";
         $project = null;
+
 
         return view("admin.projects.create-edit", compact("technologies", "types", "title", "route", "method", "project"));
     }
@@ -50,10 +53,24 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
+        // salvo in una variabile i dati che mi arrivano dal form di creazione
         $form_data = $request->all();
+
+        // invoco la funzione di generazione dello slug
         $form_data['slug'] = Project::generateSlug($form_data['title']);
 
+        // se esiste la chiave image salvo l'immagine nel file system e nel database
+        if(array_key_exists('image', $form_data)) {
+
+            // prima di salvare il file salvo il suo nome originale nel db
+            $form_data['image_original_name'] = $request->file('image')->getClientOriginalName();
+
+            // salvo l'immagine nelo storage, rinominandolo
+            $form_data['image'] = Storage::put('uploads', $form_data['image']);
+        }
+
         $new_project = Project::create($form_data);
+
 
 
         return redirect()->route('admin.projects.show', $new_project)->with('success', 'Nuovo progetto inserito con successo!');
