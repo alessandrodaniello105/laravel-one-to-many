@@ -9,7 +9,7 @@ class Technology extends Model
 {
     use HasFactory;
 
-    public function technologyPosts() {
+    public function technologyProjects() {
         return $this->hasMany(Project::class);
     }
 }
