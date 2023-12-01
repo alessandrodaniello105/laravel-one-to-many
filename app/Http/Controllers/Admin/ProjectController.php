@@ -123,6 +123,20 @@ class ProjectController extends Controller
             $form_data['slug'] = $project->slug;
         }
 
+        if(array_key_exists('image', $form_data)){
+
+            // se esiste la chiave image vuol dire che devo sostituire l'immagine presente (se c'è) eliminando quella vecchia
+            if($project->image){
+                Storage::disk('public')->delete($project->image);
+
+            }
+
+            // prima di salvare il file prendo il nome del file per salvarlo nel db
+            $form_data['image_original_name'] = $request->file('image')->getClientOriginalName();
+            // salvo il file nello storage rinominandolo
+            $form_data['image'] = Storage::put('uploads', $form_data['image']);
+        }
+
         $project->update($form_data);
 
         return redirect()->route('admin.projects.show', $project)->with('success', 'Hai modificato correttamente il progetto');
