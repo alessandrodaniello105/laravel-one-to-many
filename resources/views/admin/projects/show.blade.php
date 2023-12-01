@@ -25,6 +25,7 @@
 
     <p>{{ $project->description }}</p>
     <p>{{$project->technology->name}}</p>
+    <p>{{$project->type->name}}</p>
 
 @endsection
 

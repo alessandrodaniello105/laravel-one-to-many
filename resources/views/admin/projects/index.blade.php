@@ -13,7 +13,7 @@
     <ul id="projects-list">
         @foreach ($projects as $project)
         <li>
-            ID: {{$project->id}} | Titolo Progetto: {{$project->title}} | Tecnologie utilizzate: {{$project->technology->name}} |
+            ID: {{$project->id}} | Titolo Progetto: {{$project->title}} | Tecnologie utilizzate: {{$project->technology->name}} | Tipo: {{$project->type->name}}
 
             {{-- SHOW BUTTON --}}
             <a class="btn btn-primary" href="{{route('admin.projects.show', $project)}}">
