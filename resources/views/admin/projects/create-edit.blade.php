@@ -22,7 +22,11 @@
 
     <h1>{{ $title }}</h1>
 
-    <form action="{{ $route }}" method="POST">
+    <form
+      action="{{ $route }}"
+      method="POST"
+      enctype="multipart/form-data">
+
         @csrf
         @method( $method )
 
@@ -70,23 +74,32 @@
 
         {{-- IMMAGINE --}}
         <div class="mb-3">
-            <label for="img-input" class="form-label">Carica un'immagine</label>
-            <input id="img-input" type="file" class="form-control">
+            <label for="image" class="form-label">Carica un'immagine</label>
+            <input
+              id="image"
+              type="file"
+              class="form-control"
+              name="image"
+              value={{old('image', $project?->image)}}>
         </div>
+
+        {{-- se al progetto non è impostata un'immagine, vado a prendere il placeholder dalla cartella img dentro public, --}}
+        {{-- <img src="{{Storage::}} {{$project?->image ?? asset()}}" alt=""> --}}
 
 
         {{-- TECNOLOGIE --}}
         <div class="mb-3">
             <select
               class="form-select @error('technologies') is-invalid @enderror"
-              name="technologies"
-              value="{{old('technologies', $project?->technologies)}}">
+              name="technology_id"
+              id="technology_id"
+              value="{{old('technology_id', $project?->technology_id)}}">
 
                 <option value="0">Scegli la tecnologia principale</option>
 
                 @foreach ($technologies as $tech)
 
-                    <option {{($project?->technologies === $tech->name)? 'selected' : ''}} value="{{$tech->name}}">
+                    <option {{($project?->technology_id === $tech->id)? 'selected' : ''}} value="{{$tech->id}}">
                         {{$tech->name}}
                     </option>
 
@@ -97,40 +110,27 @@
                 @endforeach
             </select>
 
-            @error('technologies')
+            {{-- @error('technologies')
                 <ul class="text-danger mt-1">
                     <li><p class="">{{$message}}</p></li>
                 </ul>
-            @enderror
+            @enderror --}}
 
         </div>
-
-        {{-- TECNOLOGIE  se fosse un array--}}
-        {{--
-        <div class="form-check mb-3">
-
-            @foreach ($technologies as $tech)
-
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              Default radio
-            </label>
-            @endforeach
-
-        </div> --}}
-
 
         {{-- TIPO --}}
         <div class="mb-3">
             <select
-              class="form-select @error('type') is-invalid @enderror"
-              name="type"
-              value="{{old('type', $project?->type)}}">
+              class="form-select @error('type_id') is-invalid @enderror"
+              name="type_id"
+              id="type_id"
+              value="{{old('type_id')}}"
+              >
 
                 <option value="0">Scegli il tipo</option>
 
                 @foreach ($types as $type)
-                    <option @if ($project?->type === $type->name) selected @endif value="{{$type->name}}">{{$type->name}}</option>
+                    <option @if ($type->id === old('type_id', $project?->type?->id)) selected @endif value="{{$type->id}}">{{$type->name}}</option>
                 @endforeach
 
             </select>
