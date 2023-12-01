@@ -35,5 +35,5 @@ class Project extends Model
         return $slug;
     }
 
-    protected $fillable = ['title', 'slug', 'description', 'technology', 'type', 'link', 'image', 'image_original_name'];
+    protected $fillable = ['title', 'slug', 'description', 'technology_id', 'type_id', 'link', 'image', 'image_original_name'];
 }
