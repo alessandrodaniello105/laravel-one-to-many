@@ -23,6 +23,17 @@
         </form>
     </h1>
 
+    <div class="img-box">
+        <img
+        name="image"
+        id="img-project"
+        width="400"
+        class="img-fluid"
+        onerror="this.src = '/img/placeholder.webp'"
+        src="{{old('image', asset('storage/' . $project?->image))}}"
+        alt="{{ $project->image_original_name }}">
+    </div>
+
     <p>{{ $project->description }}</p>
     <p>{{$project->technology->name}}</p>
     <p>{{$project->type->name}}</p>
