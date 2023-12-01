@@ -86,7 +86,15 @@
 
         {{-- se al progetto non è impostata un'immagine, vado a prendere il placeholder dalla cartella img dentro public, --}}
         {{-- <img src=" {{$project?->image ?? asset()}}" alt=""> --}}
-        <img id="thumb" width="150" onerror="this.src = '/img/placeholder.webp'" src="{{asset('storage/' . $project?->image)}}" alt="">
+        {{-- //TODO: Fix old --}}
+        <img
+          name="image"
+          id="thumb"
+          class="img-fluid"
+          width="150"
+          onerror="this.src = '/img/placeholder.webp'"
+          src="{{old('image', asset('storage/' . $project?->image))}}"
+          alt="{{ $project->image_original_name }}">
 
 
         {{-- TECNOLOGIE --}}
@@ -155,7 +163,7 @@
               class="form-control @error('link') is-invalid @enderror"
               placeholder="https://..."
               name="link"
-              value="{{old('link')}}">
+              value="{{old('link', $project?->link)}}">
 
             @error('link')
                 <ul class="text-danger mt-1">
