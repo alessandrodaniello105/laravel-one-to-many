@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->date('date_created')->nullable();
+            $table->date('project_date_created')->after('description')->nullable();
+            $table->date('project_date_finished')->after('description')->nullable();
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropColumn('date_created');
+            $table->dropColumn('project_date_created');
+            $table->dropColumn('project_date_finished');
         });
     }
 };
