@@ -10,32 +10,61 @@
         </div>
     @endif
 
-    <ul id="projects-list">
-        @foreach ($projects as $project)
-        <li>
-            ID: {{$project->id}} | Titolo Progetto: {{$project->title}} | Tecnologie utilizzate: {{$project->technology->name}} | Tipo: {{$project->type->name}}
 
-            {{-- SHOW BUTTON --}}
-            <a class="btn btn-primary" href="{{route('admin.projects.show', $project)}}">
-                <i class="fa-solid fa-eye"></i>
-            </a>
 
-            {{-- EDIT BUTTON --}}
-            <a class="btn btn-warning" href="{{route('admin.projects.edit', $project)}}">
-                <i class="fa-solid fa-pencil"></i>
-            </a>
+    <div class="cards-wrapper my-3">
+        <div class="row">
+                @foreach ($projects as $project)
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
 
-            {{-- DELETE BUTTON --}}
-            <form class="d-inline-block" method="POST" action="{{route('admin.projects.destroy', $project)}}">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-eraser"></i></button>
-            </form>
 
-        </li>
-        @endforeach
+                        <div class="img-box">
 
-    </ul>
+                            {{-- IMAGE --}}
+                            <img onerror="this.src = '/img/placeholder.webp'" src="{{asset('storage/' . $project?->image)}}" class="card-img-top" alt="{{ $project->image_original_name ?? 'placeholder image' }}">
+
+                            <span class="badge bg-secondary">{{$project->type->name}}</span></h6>
+
+                        </div>
+
+                        <div class="card-body">
+                          <h5 class="card-title">{{ $project->title }}</h5>
+                          <p class="card-text">{{ $project->description }}</p>
+                        </div>
+
+                        <div class="card-body d-flex justify-content-end">
+
+                            <div class="actions align-self-end">
+
+                                {{-- SHOW BUTTON --}}
+                                <a class="btn btn-primary" href="{{route('admin.projects.show', $project)}}">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+
+                                {{-- EDIT BUTTON --}}
+                                <a class="btn btn-warning" href="{{route('admin.projects.edit', $project)}}">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+
+                                {{-- DELETE BUTTON --}}
+                                <form class="d-inline-block" method="POST" action="{{route('admin.projects.destroy', $project)}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-eraser"></i></button>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                      </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+
 
 @endsection
 
