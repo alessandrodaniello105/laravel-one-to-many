@@ -92,19 +92,16 @@
         {{-- TECNOLOGIE --}}
         <div class="mb-3">
             <select
-              class="form-select @error('technology') is-invalid @enderror"
+              class="form-select "
               name="technology_id"
-              id="technology_id"
-              value="{{old('technology_id', $project?->technology_id)}}">
+              id="technology_id">
 
 
-                <option value="0">Scegli la tecnologia principale</option>
+                    <option value="0">Scegli la tecnologia principale</option>
 
                 @foreach ($technologies as $tech)
 
-                    <option {{($project?->technology_id === $tech->id)? 'selected' : ''}} value="{{$tech->id}}">
-                        {{$tech->name}}
-                    </option>
+                    <option value="{{$tech->id}}" {{ old('technology_id', $project?->technology_id) == $tech->id? 'selected' : '' }} >{{ $tech->name }}</option>
 
                     {{-- <option @if ($project?->technologies === $tech->name) selected @endif value="{{$tech->name}}">
                         {{$tech->name}}
@@ -133,7 +130,9 @@
                 <option value="0">Scegli il tipo</option>
 
                 @foreach ($types as $type)
-                    <option @if (old('type_id', $project?->type?->id) === $type->id) selected @endif value="{{$type->id}}">{{$type->name}}</option>
+                    <option @if (old('type_id', $project?->type_id) == $type->id) selected @endif
+                        value="{{$type->id}}"
+                        >{{$type->name}}</option>
                 @endforeach
 
             </select>
