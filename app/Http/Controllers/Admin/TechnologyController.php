@@ -27,8 +27,7 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        $technologies = Technology::all();
-        return view("admin.technologies.index");
+        return redirect()->route("admin.technologies.index");
     }
 
     /**
@@ -45,8 +44,6 @@ class TechnologyController extends Controller
         $new_technology = Technology::create($form_data);
 
         return redirect()->route('admin.technologies.index')->with('success', 'Hai inserito una nuova tecnologia con successo.');
-
-
     }
 
     /**
