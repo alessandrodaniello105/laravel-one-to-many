@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table("types", function (Blueprint $table) {
-            $table->string("slug", 16);
+            $table->string("slug", 32);
         });
     }
 
