@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Type;
+use App\Functions\Helper;
 
 class TypeController extends Controller
 {
@@ -19,11 +20,6 @@ class TypeController extends Controller
         return view("admin.types.index", compact("types"));
     }
 
-    public function typeProjects() {
-        $types = Type::all();
-        return view("admin.projects.create-edit", compact("types"));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -31,7 +27,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route("admin.technologies.index");
     }
 
     /**
@@ -42,7 +38,12 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request->all();
+        $form_data['slug'] = Helper::generateSlug($form_data['name'], Type::class);
+
+        $new_type = Type::create($form_data);
+
+        return redirect()->route('admin.types.index')->with('success', "Hai inserito con successo un nuovo tipo di progetto dal nome {{$new_type->name}}");
     }
 
     /**
