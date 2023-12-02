@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Technology;
+use App\Functions\Helper;
 
 class TechnologyController extends Controller
 {
@@ -26,7 +27,8 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        $technologies = Technology::all();
+        return view("admin.technologies.index");
     }
 
     /**
@@ -37,7 +39,14 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request->all();
+        $form_data['slug'] = Helper::generateSlug($form_data['name'], Technology::class);
+
+        $new_technology = Technology::create($form_data);
+
+        return redirect()->route('admin.technologies.index')->with('success', 'Hai inserito una nuova tecnologia con successo.');
+
+
     }
 
     /**
