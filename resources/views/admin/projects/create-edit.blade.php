@@ -94,7 +94,7 @@
           width="150"
           onerror="this.src = '/img/placeholder.webp'"
           src="{{old('image', asset('storage/' . $project?->image))}}"
-          alt="{{ $project->image_original_name }}">
+          alt="{{ $project?->image_original_name ?? 'placeholder image' }}">
 
 
         {{-- TECNOLOGIE --}}
