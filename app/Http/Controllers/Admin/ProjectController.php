@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\Helper;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -57,7 +59,7 @@ class ProjectController extends Controller
         $form_data = $request->all();
 
         // invoco la funzione di generazione dello slug
-        $form_data['slug'] = Project::generateSlug($form_data['title']);
+        $form_data['slug'] = Helper::generateSlug($form_data['title'], Project::class);
 
         // se esiste la chiave image salvo l'immagine nel file system e nel database
         if(array_key_exists('image', $form_data)) {
@@ -118,7 +120,7 @@ class ProjectController extends Controller
         $form_data = $request->all();
 
         if ($form_data['title'] !== $project->title) {
-            $form_data['slug'] = Project::generateSlug($form_data['title']);
+            $form_data['slug'] = Helper::generateSlug($form_data['title'], Project::class);
         } else {
             $form_data['slug'] = $project->slug;
         }
