@@ -24,7 +24,7 @@
                             {{-- IMAGE --}}
                             <img onerror="this.src = '/img/placeholder.webp'" src="{{asset('storage/' . $project?->image)}}" class="card-img-top" alt="{{ $project?->image_original_name ?? 'placeholder image' }}">
 
-                            <span class="badge bg-secondary">{{$project->type->name}}</span></h6>
+                            <span class="badge bg-secondary">{{$project->type->name ?? 'Nessun Tipo'}}</span></h6>
 
                         </div>
 
