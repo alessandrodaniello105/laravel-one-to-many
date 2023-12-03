@@ -4,6 +4,12 @@
 
     <h1>Lista Tipi</h1>
 
+    @if (session('success'))
+        <div class="alert alert-primary" role="alert">
+            {{session('success')}}
+        </div>
+    @endif
+
     <div class="container">
         <div class="row">
 
@@ -31,6 +37,8 @@
                                         <a class="btn btn-warning" href="{{route('admin.types.edit', $type)}}">
                                             <i class="fa-solid fa-pencil"></i>
                                         </a>
+
+                                        @include('admin.partials.formDelete', ["route" => route('admin.types.destroy', $type)])
                                     </td>
                                 </tr>
                                 @endforeach
@@ -72,6 +80,7 @@
                 {{-- /Card creazione --}}
 
                 {{-- Card modifica --}}
+                @if (Route::currentRouteName() !== 'admin.types.index')
                 <div class="card my-3">
                     <div class="card-body">
 
@@ -83,7 +92,7 @@
 
                             <div class="input-group mb-3">
 
-                                <input type="text" class="form-control" placeholder="Nuovo nome tipo"  name="name" value="{{old('name', $sel_type?->name)}}">
+                                <input type="text" class="form-control" placeholder="Nuovo nome tipo"  name="name" value="{{ $sel_type?->name}}">
 
                                 <button type="submit" class="btn btn-warning">Invia</button>
 
@@ -93,6 +102,8 @@
 
                     </div>
                 </div>
+                @endif
+
                 {{-- /Card modifica --}}
 
             </div>
