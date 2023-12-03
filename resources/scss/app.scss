@@ -22,6 +22,11 @@ header {
 }
 
 .cards-wrapper {
+    .col {
+        position:relative;
+        width: 341px;
+        height: 420px;
+    }
     .card {
         height: 400px;
         margin: 10px 0;
@@ -63,9 +68,6 @@ aside {
         a {
             color: white;
             text-decoration: none;
-            &:hover {
-                text-decoration: underline;
-            }
         }
     }
 }
@@ -76,3 +78,7 @@ aside {
         margin: 20px 0;
     }
 }
+
+
+
+
