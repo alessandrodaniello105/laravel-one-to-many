@@ -51,7 +51,7 @@ class TypeController extends Controller
 
         $new_type = Type::create($form_data);
 
-        return redirect()->route('admin.types.index')->with('success', "Hai inserito con successo un nuovo tipo di progetto dal nome {{$new_type->name}}");
+        return redirect()->route('admin.types.index')->with('success', "Hai inserito con successo un nuovo tipo di progetto dal nome ''$new_type->name''");
     }
 
     /**
@@ -103,8 +103,9 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('success', "Hai correttamente cancellato ''$type->name''.");
     }
 }
