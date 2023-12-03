@@ -1,28 +1,126 @@
 @extends('layouts.admin')
 
 @section('content')
-{{-- @php
-    $types = config('types')
-@endphp --}}
-
 
     <h1>Lista Tipi</h1>
 
-    <div class="container my-5">
+    <div class="container">
+        <div class="row">
 
-        <form action="{{ route('admin.types.store') }}" method="POST">
-            @csrf
+            {{-- Lista tipi + numero progetti --}}
+            <div class="col col-4 float-start">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
 
-            <div class="input-group mb-3">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nome</th>
+                                <th class="text-center" scope="col">Numero progetti</th>
+                                <th scope="col">Azioni</th>
+                              </tr>
+                            </thead>
 
-                <input type="text" class="form-control" placeholder="Nome nuovo tipo" id="new-type-input" name="name">
+                            <tbody>
 
-                <button type="submit" class="btn btn-warning">Invia</button>
+                                @foreach ($types as $type)
+                                <tr>
+                                    <td>{{$type->name}}</td>
+                                    <td class="text-center">{{count($type->typeProjects)}}</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="{{route('admin.types.edit', $type)}}">
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Colonna crea/edit tipo --}}
+            <div class="col-3 float-start">
+
+                {{-- Card creazione --}}
+                <div class="card">
+                    <div class="card-body">
+
+                        <h3>Crea un nuovo tipo</h3>
+
+                        <form action="{{ route('admin.types.store') }}" method="POST">
+                            @csrf
+
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" placeholder="Nome nuovo tipo" id="new-type-input" name="name">
+
+                                <button type="submit" class="btn btn-warning">Invia</button>
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+                {{-- /Card creazione --}}
+
+                {{-- Card modifica --}}
+                <div class="card my-3">
+                    <div class="card-body">
+
+                        <h3>Edita un tipo</h3>
+
+                        <form action="{{ route('admin.types.update', $type) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" placeholder="Nuovo nome tipo"  name="name" value="{{old('name', $sel_type?->name)}}">
+
+                                <button type="submit" class="btn btn-warning">Invia</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                {{-- /Card modifica --}}
 
             </div>
 
+        </div>
 
-        </form>
+
+        {{-- <div class="mx-3 col-3 float-start">
+            <h3>Crea un nuovo tipo</h3>
+            <form action="{{ route('admin.types.store') }}" method="POST">
+                @csrf
+
+                <div class="input-group mb-3">
+
+                    <input type="text" class="form-control" placeholder="Nome nuovo tipo" id="new-type-input" name="name">
+
+                    <button type="submit" class="btn btn-warning">Invia</button>
+
+                </div>
+
+
+            </form>
+        </div> --}}
+    </div>
+
+
+    {{-- <div class="container my-5">
+
 
 
         <ul>
@@ -34,7 +132,7 @@
 
         </ul>
 
-    </div>
+    </div> --}}
 
 @endsection
 
