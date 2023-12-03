@@ -20,14 +20,16 @@
 
         </form>
 
-        <ul>
-            @foreach ($technologies as $technology)
-            <li>
-                <a href="{{$technology->link}}">{{$technology->name}}</a>
-            </li>
-            @endforeach
+        <div class="card">
+            <ul style="list-style: none;" class="d-flex justify-content-around flex-wrap text-center">
+                @foreach ($technologies as $technology)
+                <li class="rounded my-3 btn-colored">
+                    <a style="width: 300px" class="p-4 d-inline-block" href="{{$technology->link}}">{{$technology->name}}</a>
+                </li>
+                @endforeach
 
-        </ul>
+            </ul>
+        </div>
 
     </div>
 
