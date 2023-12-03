@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <div class="container">
+    <div class="container my-3">
         <div class="row">
 
             {{-- Lista tipi + numero progetti --}}
