@@ -13,7 +13,7 @@
 
 
     <div class="cards-wrapper my-3">
-        <div class="row">
+        <div id="cards-wrapper-row" class="row">
                 @foreach ($projects as $project)
                 <div class="col">
                     <div class="card" style="width: 18rem;">
@@ -22,7 +22,7 @@
                         <div class="img-box">
 
                             {{-- IMAGE --}}
-                            <img onerror="this.src = '/img/placeholder.webp'" src="{{asset('storage/' . $project?->image)}}" class="card-img-top" alt="{{ $project->image_original_name ?? 'placeholder image' }}">
+                            <img onerror="this.src = '/img/placeholder.webp'" src="{{asset('storage/' . $project?->image)}}" class="card-img-top" alt="{{ $project?->image_original_name ?? 'placeholder image' }}">
 
                             <span class="badge bg-secondary">{{$project->type->name}}</span></h6>
 
