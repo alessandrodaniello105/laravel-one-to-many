@@ -6,8 +6,8 @@
 
     <div class="container my-5">
 
-    <form action="{{ route('admin.technologies.store') }}" method="POST">
-        @csrf
+        <form action="{{ route('admin.technologies.store') }}" method="POST">
+            @csrf
 
             <div class="input-group mb-3">
 
