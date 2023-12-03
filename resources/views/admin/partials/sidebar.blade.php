@@ -9,6 +9,7 @@
             <li class="mb-3"><a href="{{route('admin.projects.index')}}">Lista Progetti</a></li>
             <li class="mb-3"><a href="{{route('admin.technologies.index')}}">Lista Tecnologie</a></li>
             <li class="mb-3"><a href="{{route('admin.types.index')}}">Lista Tipi</a></li>
+            <li class="mb-3"><a href="{{route('admin.typeProjects')}}">Lista Progetti per Tipo</a></li>
         </ul>
     </nav>
 </aside>
