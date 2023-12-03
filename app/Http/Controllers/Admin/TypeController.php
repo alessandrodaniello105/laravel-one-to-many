@@ -17,7 +17,15 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::all();
-        return view("admin.types.index", compact("types"));
+
+        $sel_type = null;
+
+        return view("admin.types.index", compact("types", 'sel_type'));
+    }
+
+    public function typeProjects() {
+        $types = Type::all();
+        return view('admin.types.type-projects', compact("types"));
     }
 
     /**
@@ -63,9 +71,13 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Type $type)
     {
-        //
+        // $sel_type = Type::find($type->id);
+        $types = Type::all();
+
+        $sel_type = $type;
+        return view('admin.types.index', compact('sel_type', 'types'));
     }
 
     /**
@@ -75,9 +87,14 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Type $type)
     {
-        //
+        $form_data = $request->all();
+        $form_data['slug'] = Helper::generateSlug($form_data['name'], Type::class);
+
+        $type->update($form_data);
+
+        return redirect()->route('admin.types.index', compact('type'));
     }
 
     /**
