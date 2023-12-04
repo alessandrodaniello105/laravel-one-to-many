@@ -25,8 +25,8 @@ class ProjectRequest extends FormRequest
             'title' => 'required|min:3|max:75',
             'description' => 'required|min:3|max:255',
             //TODO: technologies sarà un array quando studieremo le relazioni
-            'technologies' => 'required',
-            'type' => 'required',
+            // 'technologies' => 'required',
+            // 'type_id' => 'required',
             'link' => 'min:10|max:120'
         ];
     }
@@ -41,9 +41,9 @@ class ProjectRequest extends FormRequest
             'description.min' => 'La descrizione deve essere almeno :min caratteri',
             'description.max' => 'La descrizione può essere lunga al massimo :max caratteri',
 
-            'technologies.required' => 'È necessario inserire una tecnologia',
+            // 'technologies.required' => 'È necessario inserire una tecnologia',
 
-            'type.required' => 'È necessario inserire un tipo di progetto',
+            // 'type_id.required' => 'È necessario inserire un tipo di progetto',
 
             'link.min' => 'Il link deve essere almeno :min caratteri',
             'link.max' => 'Il link può essere lungo al massimo :max caratteri'
